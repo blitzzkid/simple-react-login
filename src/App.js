@@ -31,6 +31,18 @@ class App extends React.Component {
         this.setState({ owners: [] });
       });
   };
+  adoptKitten = id => {
+    const url = "http://localhost:5000/kittens/delete/" + id;
+    axios
+      .delete(url, { withCredentials: true })
+      .then(res => {
+        console.log(res);
+        this.fetchKittens();
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
   loginHandler = () => {
     const url = "http://localhost:5000/owners/login";
     axios
@@ -47,11 +59,23 @@ class App extends React.Component {
         this.setState({ isLoggedIn: false });
       });
   };
+  logoutHandler = () => {
+    const url = "http://localhost:5000/owners/logout";
+    axios
+      .post(url, {}, { withCredentials: true })
+      .then(res => {
+        this.setState({ isLoggedIn: false });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
 
   render() {
     return (
       <div className="App">
         <button onClick={this.loginHandler}>Login</button>
+        <button onClick={this.logoutHandler}>Logout</button>
         <p>You are logged {this.state.isLoggedIn ? "in" : "out"}</p>
         <button onClick={this.fetchOwners}>
           Get me all the owner by name (protected)
@@ -67,6 +91,9 @@ class App extends React.Component {
             <p key={kitten._id}>
               {kitten.name} is a {kitten.sex} kitten and it is {kitten.age}
               years old.
+              <button onClick={() => this.adoptKitten(kitten._id)}>
+                Adopt
+              </button>
             </p>
           );
         })}
