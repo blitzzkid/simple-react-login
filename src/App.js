@@ -12,7 +12,7 @@ class App extends React.Component {
     };
   }
   fetchKittens = () => {
-    const url = "http://localhost:5000/kittens/";
+    const url = "https://kitten-home.herokuapp.com/kittens";
     axios
       .get(url)
       .then(res => this.setState({ kittens: res.data }))
@@ -22,7 +22,7 @@ class App extends React.Component {
       });
   };
   fetchOwners = () => {
-    const url = "http://localhost:5000/owners/Derrick";
+    const url = "https://kitten-home.herokuapp.com/owners/Agustin";
     axios
       .get(url, { withCredentials: true })
       .then(res => this.setState({ owners: res.data }))
@@ -32,7 +32,7 @@ class App extends React.Component {
       });
   };
   adoptKitten = id => {
-    const url = "http://localhost:5000/kittens/delete/" + id;
+    const url = "https://kitten-home.herokuapp.com/kittens/delete/" + id;
     axios
       .delete(url, { withCredentials: true })
       .then(res => {
@@ -44,7 +44,7 @@ class App extends React.Component {
       });
   };
   loginHandler = () => {
-    const url = "http://localhost:5000/owners/login";
+    const url = "https://kitten-home.herokuapp.com/owners/login";
     axios
       .post(
         url,
@@ -60,7 +60,7 @@ class App extends React.Component {
       });
   };
   logoutHandler = () => {
-    const url = "http://localhost:5000/owners/logout";
+    const url = "https://kitten-home.herokuapp.com/owners/logout";
     axios
       .post(url, {}, { withCredentials: true })
       .then(res => {
